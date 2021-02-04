@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>MySystem</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="shortcut icon" type="image/jpg" class="img-circle" alt="Cinque Terre" width="64" height="64"
+    href="dist/img/webLogo-removebg-preview.png" />
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('background.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+  </style>
+  <script>
+    function validateForm() {
+      var email = document.forms["Form"]["email"].value;
+      var value = document.getElementById('password').value;
+      var password = document.forms["Form"]["password"].value;
+      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      var strength = 0;
+      if (password.match(/[a-z]+/)) {
+        strength += 1;
+      }
+      if (password.match(/[A-Z]+/)) {
+        strength += 1;
+      }
+      if (password.match(/[0-9]+/)) {
+        strength += 1;
+      }
+      if (password.match(/[$@#&!]+/)) {
+        strength += 1;
+
+      }
+      if (email == "" || email == null) {
+        alert("Pmail must be filled out");
+        return false;
+      } else if (reg.test(email) == false) {
+        alert('Invalid Email Address');
+        return false;
+      } else if (password == "" || password == null) {
+        alert("Password must be filled out");
+        return false;
+      } //Please enter at least 6 characters.
+      else if (value.length < 6) {
+        alert("Please enter at least 6 characters.");
+        return false;
+      }
+
+
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+</head>
+
+<body class="hold-transition login-page">
+  <div class="login-box">
+
+
+    <div class="login-logo">
+      <!-- <a href="../../index2.html"><b>My</b>System</a> -->
+      <img class="img-circle" width="128" height="128" src="dist/img/webLogo-removebg-preview.png">
+    </div>
+    <!-- /.login-logo -->
+    <% if (typeof resp != 'undefined') { %>
+    <div class="alert alert-danger alert-dismissible fade show">
+      <strong>Error!</strong> <%= resp%>
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    <% } %>
+
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="text-left">Welcome, Please Login</p>
+
+        <form action="/admin" method="post" name="Form" onsubmit="return validateForm()">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" id="remember">
+                <label for="remember" value="remember-me" id="remember_me">
+                  Remember Me
+                </label>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+
+        <!-- <div class="social-auth-links text-center mb-3">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
+      </div> -->
+        <!-- /.social-auth-links -->
+
+        <p class="mb-1">
+          <a href="forgot-password.html">I forgot my password</a>
+        </p>
+        <!-- <p class="mb-0">
+        <a href="register.html" class="text-center">Register a new membership</a>
+      </p> -->
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+  </div>
+  <!-- /.login-box -->
+
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../dist/js/adminlte.min.js"></script>
+
+  <script type="text/javascript">
+    $(".alert").delay(5000).slideUp(100, function () {
+      $(this).alert('close');
+    });
+  </script>
+  <script>
+    $(function () {
+
+      if (localStorage.chkbx && localStorage.chkbx != '') {
+        $('#remember_me').attr('checked', 'checked');
+        $('#xip_Name').val(localStorage.usrname);
+        $('#xip_Password').val(localStorage.pass);
+      } else {
+        $('#remember_me').removeAttr('checked');
+        $('#xip_Name').val('');
+        $('#xip_Password').val('');
+      }
+
+      $('#remember_me').click(function () {
+
+        if ($('#remember_me').is(':checked')) {
+          // save username and password
+          localStorage.usrname = $('#xip_Name').val();
+          localStorage.pass = $('#xip_Password').val();
+          localStorage.chkbx = $('#remember_me').val();
+        } else {
+          localStorage.usrname = '';
+          localStorage.pass = '';
+          localStorage.chkbx = '';
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<% include header.html %>
+<!-- /.card-header -->
+<script>
+    const x = 0;
+</script>
+<br>
+
+<div class="container">
+    <div class="float-right d-none d-md-block">
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalPage"><i
+                class="fa fa-plus"></i>&nbsp;Add New Admin</button>
+
+    </div>
+    <br> <br>
+</div>
+
+
+
+
+<div class="card-body">
+
+    <table id="example2" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Profile</th>
+                <th>Type</th>
+                <th>Active</th>
+                <th>Last Login</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <% adminsList.forEach(function(entry) { %>
+            <tr>
+                <td><%= entry.name %></td>
+                <td><%= entry.email %></td>
+
+                <td><%= entry.phone %></td>
+                <td><img src="dist/img/userimg.png" width="42" height="42" class="rounded"></td>
+                <td><%= entry.type %></td>
+                <td>
+                    <% if(entry.status == "1") { %>
+                    <span class="btn-success" style="padding: 5px; border-radius: 4px;">Active
+                    </span>
+                    <%}else { %>
+                    <span class="btn-danger" style="padding: 5px; border-radius: 4px;">Inactive
+                    </span>
+                    <% }%>
+                </td>
+
+                <td>
+                    <%
+                    var sep = new Date(entry.last_login_date);
+                    var today = new Date();
+                    var second = Math.floor((today - sep) / (1000));
+                    var min = Math.floor((today - sep) / (1000*60));
+                    var hour = Math.floor((today - sep) / (1000*60*60));
+                    var day = Math.floor((today - sep) / (1000*60*60*24));
+                    
+                    console.log('second Diff: '+second);
+                    console.log('min Diff: '+min);
+                    console.log('hour Diff: '+hour);
+                    console.log('day Diff: '+day);
+                    
+                  second
+                  
+                    %>
+
+                </td>
+
+                <% }) %>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">Edit Detail</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</div>
+<% include footer.html %>
